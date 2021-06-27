@@ -15,8 +15,9 @@ function info(message){
     let log = `[${moment().format()}] - ${message}`;
     console.log(log);
 
+    let path = process.env.INFO_LOG_PATH || '/var/log/info.log';
     if(process.env.LOGGING >= 2)
-        writeLog(process.env.INFO_LOG_PATH,log);
+        writeLog(path,log);
 }
 
 
@@ -43,8 +44,9 @@ function error(err,userData={},others={}){
 
     console.log(log);
 
+    let path = process.env.ERROR_LOG_PATH || '/var/log/error.log';
     if(process.env.LOGGING >= 1)
-        writeLog(process.env.ERROR_LOG_PATH, JSON.stringify(log)+ "\r");
+        writeLog(path, JSON.stringify(log)+ "\r");
 
 }
 
@@ -69,5 +71,6 @@ function writeLog(path,log){
 
 module.exports = {
     info,
-    error
+    error,
+    writeLog
 }

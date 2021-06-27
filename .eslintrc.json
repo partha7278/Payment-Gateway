@@ -12,5 +12,5 @@
     "rules": {
         "no-unused-vars": "off"
     },
-    "globals": {"logger": "readonly"}
+    "globals": {"logger": "readonly", "tracer": "readonly", "db": "readonly"}
 }
