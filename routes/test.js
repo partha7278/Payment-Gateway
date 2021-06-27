@@ -4,8 +4,8 @@ const router = express.Router();
 
 
 router.get('/status', (req,res)=> {
-    return res.send({'status':200,'message':'Healthy'});
-    
+
+    return res.send({'statusCode':200,'status':'SUCCESS','message':'Healthy','rowCount':0,'data':[]});
 });
 
 
