@@ -8,7 +8,7 @@ const {
 
 
 router.get('/status', (req,res)=> {
-
+    console.log(c);
     return res.send({'status':200,'message':'Healthy'});
     
 });
