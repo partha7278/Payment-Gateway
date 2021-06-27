@@ -2,11 +2,29 @@
   "name": "payment-gateway",
   "version": "1.0.0",
   "description": "A Payment Gateway integration project",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
     "migrate": "npx sequelize-cli db:migrate",
-    "test": "node eslintTest.js"
+    "lint": "eslint .",
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "*.js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 100,
+        "branches": 100,
+        "functions": 100,
+        "lines": 100
+      }
+    }
   },
   "repository": {
     "type": "git",
@@ -35,9 +53,8 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.28.0",
-    "@typescript-eslint/parser": "^4.28.0",
     "eslint": "^7.29.0",
+    "jest": "^27.0.5",
     "nodemon": "^2.0.7"
   }
 }
