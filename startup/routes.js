@@ -3,7 +3,7 @@ const trimmer = require('../middlewares/apiRequestTrimmer');
 const api = require('../routes/index');
 
 
-module.exports = function(app){
+module.exports = async function(app){
 
 
     /** triming all spaces from front & back */

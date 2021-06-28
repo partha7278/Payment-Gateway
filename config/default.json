@@ -1,0 +1,9 @@
+{   
+    "API_PREFIX" : "",
+    "TRACING_LEVEL" : "1",
+    "TRACING_LOG" : "1",
+    "LOGGING" : "0",
+    "ERROR_LOG_PATH" : "/var/log/error.log",
+    "INFO_LOG_PATH" : "/var/log/info.log",
+    "TRACING_LOG_PATH" : "/var/log/tracing.log"
+}

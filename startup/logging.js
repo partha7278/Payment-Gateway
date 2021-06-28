@@ -1,6 +1,6 @@
 const fs = require('fs');
 const moment = require('moment');
-
+const config = require('config');
 
 /**
  * Info logger function
@@ -15,8 +15,8 @@ function info(message){
     let log = `[${moment().format()}] - ${message}`;
     console.log(log);
 
-    let path = process.env.INFO_LOG_PATH || '/var/log/info.log';
-    if(process.env.LOGGING >= 2)
+    let path = config.get('INFO_LOG_PATH') || '/var/log/info.log';
+    if(config.get('LOGGING') >= 2)
         writeLog(path,log);
 }
 
@@ -28,7 +28,7 @@ function info(message){
  * @param  {object} others - others data object
  * @return
  */
-function error(err,userData={},others={}){
+function error(err,userData={},others=''){
 
     let log = {
         timestamp : moment().format(),
@@ -38,14 +38,14 @@ function error(err,userData={},others={}){
         lineNumber : err.lineNumber ? err.lineNumber : '',
         columnNumber : err.columnNumber ? err.columnNumber : '',
         userData : userData,
-        othersData : others,
+        othersData : (others ? others : (err.others ? err.others : {})),
         stack : err.stack ? err.stack : '',
     }
 
     console.log(log);
 
-    let path = process.env.ERROR_LOG_PATH || '/var/log/error.log';
-    if(process.env.LOGGING >= 1)
+    let path = config.get('ERROR_LOG_PATH') || '/var/log/error.log';
+    if(config.get('LOGGING') >= 1)
         writeLog(path, JSON.stringify(log)+ "\r");
 
 }

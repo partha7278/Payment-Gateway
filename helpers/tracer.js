@@ -1,6 +1,7 @@
 const { performance } = require('perf_hooks');
 const moment = require('moment');
 const { writeLog } = require('../startup/logging')
+const config = require('config');
 
 
 
@@ -15,7 +16,7 @@ function entry(req){
     req.tracing.push({'entry':0});
 
     /** Console tracing entry */
-    if(process.env.TRACING_LOG == 1 || process.env.TRACING_LOG == 3){
+    if(config.get('TRACING_LOG') == 1 || config.get('TRACING_LOG') == 3){
         console.log(`[${moment().format()}] - URL=> ${req.originalUrl} - Method=> ${req.method}`);
         console.log(`Entry - `,0,'ms');
     }
@@ -37,12 +38,12 @@ function exit(req){
         req.lastProcessedTime = performance.now();
 
         /** Console Tracing exit */
-        if(process.env.TRACING_LOG == 1 || process.env.TRACING_LOG == 3)
+        if(config.get('TRACING_LOG') == 1 || config.get('TRACING_LOG') == 3)
             console.log(`Exit - `,time,'ms');
 
         /** Log Tracing data */
-        if(process.env.TRACING_LOG >= 2){
-            let path = process.env.TRACING_LOG_PATH || '/var/log/tracing.log';
+        if(config.get('TRACING_LOG') >= 2){
+            let path = config.get('TRACING_LOG_PATH') || '/var/log/tracing.log';
             
             let data = {
                 timestamp : moment().format(),
