@@ -8,6 +8,10 @@ Access Url:- http://localhost:6001
 2. [Todo Tree](https://marketplace.visualstudio.com/items?itemName=Gruntfuggly.todo-tree)
 
 
+### Resources
+1. [HTTP Status](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+
+
 ### Config
 * API_PREFIX
 * TRACING_LEVEL 
@@ -19,4 +23,5 @@ Access Url:- http://localhost:6001
 * ERROR_LOG_PATH
 * INFO_LOG_PATH
 * TRACING_LOG_PATH
+* SLACK_WEBHOOK_URL
 

@@ -26,6 +26,16 @@ module.exports = (sequelize, DataTypes) => {
     details: {
       type: DataTypes.STRING
     },
+    alias : {
+      type: DataTypes.STRING
+    },
+    isVerified : {
+      type: DataTypes.BOOLEAN,
+      default: false
+    },
+    rezorpayFundId: {
+      type: DataTypes.STRING
+    },
     isDefault: {
       type: DataTypes.BOOLEAN,
       default: false

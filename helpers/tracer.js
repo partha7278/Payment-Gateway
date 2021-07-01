@@ -2,7 +2,8 @@ const { performance } = require('perf_hooks');
 const moment = require('moment');
 const { writeLog } = require('../startup/logging')
 const config = require('config');
-
+const path = require('path');
+const basedir = path.dirname(require.main.filename);
 
 
 /**
@@ -62,8 +63,18 @@ function exit(req){
 
 
 
+/**
+ * @param  {object} req - required - request object
+ * @param  {string} name - optional - trace name
+ * @return
+ */
+function trace(req,name){
+    //TODO we have to complete this function using errorStack
+}
+
 
 module.exports = {
     entry,
-    exit
+    exit,
+    trace
 }

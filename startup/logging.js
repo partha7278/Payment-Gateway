@@ -1,6 +1,8 @@
 const fs = require('fs');
 const moment = require('moment');
 const config = require('config');
+const notification = require('../services/notification');
+
 
 /**
  * Info logger function
@@ -44,10 +46,15 @@ function error(err,userData={},others=''){
 
     console.log(log);
 
+    /** Write log if enable */
     let path = config.get('ERROR_LOG_PATH') || '/var/log/error.log';
     if(config.get('LOGGING') >= 1)
         writeLog(path, JSON.stringify(log)+ "\r");
+    
 
+    /** send slack notification if enable */
+    if(process.env.SLACK_WEBHOOK_URL)
+        notification.slackNotification(JSON.stringify(log), 0);
 }
 
 
@@ -60,10 +67,15 @@ function error(err,userData={},others=''){
  */
 function writeLog(path,log){
 
-    let content = log + "\n";
-    fs.appendFile(path, content, err => {
-        if(err) console.log(err);
-    });
+    try{
+        let content = log + "\n";
+        fs.appendFile(path, content, err => {
+            if(err) console.log(err);
+        });
+    }
+    catch{
+        console.log('Write Log Error - Unable to write log')
+    }
 }
 
 

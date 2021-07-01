@@ -153,6 +153,22 @@ module.exports = (sequelize, DataTypes) => {
     Contact.belongsTo(models.User,{
       foreignKey : 'accountManagerId'
     });
+
+    Contact.hasMany(models.VirtualAccuntsOfContact, {
+      foreignKey: 'contactId'
+    });
+
+    Contact.hasMany(models.TagOrderToContact, {
+      foreignKey: 'contactId'
+    });
+
+    Contact.hasMany(models.CapturedTransaction, {
+      foreignKey: 'contactId'
+    });
+
+    Contact.hasMany(models.GeneratedReceipt,{
+      foreignKey: 'contactId'
+    });
     
   };
   return Contact;

@@ -203,6 +203,12 @@ module.exports = (sequelize, DataTypes) => {
         isRemoveBlankColumn:{
             type: DataTypes.BOOLEAN,
             defaultValue: true
+        },
+        rezorpayCustomerId: {
+            type: DataTypes.STRING
+        },
+        rezorpayContactId:{
+            type: DataTypes.STRING
         }
     }, {
         tableName: 'organizations',
@@ -227,6 +233,18 @@ module.exports = (sequelize, DataTypes) => {
 
         Organization.hasMany(models.Contact, {
             foreignKey: 'organizationId'
+        });
+
+        Organization.hasOne(models.OrganizationPaymentSetting,{
+            foreignKey : 'organizationId'
+        });
+
+        Organization.hasMany(models.TagOrderToContact,{
+            foreignKey : 'organizationId'
+        });
+
+        Organization.hasMany(models.CapturedTransaction,{
+            foreignKey : 'organizationId'
         });
     };
     return Organization;
