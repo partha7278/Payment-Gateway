@@ -16,7 +16,7 @@ async function updatePaymentSetting(req, data, where) {
         /** Tracer End*/
         tracer.trace(req);
         
-        return {'statusCode':200,'status':'SUCCESS','message':'','data':PaymentSetting};
+        return {'statusCode':200,'status':'SUCCESS','message':'','rowCount':(PaymentSetting && PaymentSetting[0] ? PaymentSetting[0] : 0),'data':null};
     }
     catch(ex) {
         return handleError(new CustomError(ex.name, ex.message, ex.parent), req.user);
@@ -40,7 +40,7 @@ async function createPaymentSetting(req, data) {
         /** Tracer End*/
         tracer.trace(req);
         
-        return {'statusCode':200,'status':'SUCCESS','message':'','data':PaymentSetting};
+        return {'statusCode':200,'status':'SUCCESS','message':'','rowCount':(PaymentSetting ? 1 : 0),'data':PaymentSetting};
     }
     catch(ex) {
         return handleError(new CustomError(ex.name, ex.message, ex.parent), req.user);

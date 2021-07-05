@@ -15,7 +15,7 @@ async function selectIdPaymentSettingOne(req, where) {
         /** Tracer End*/
         tracer.trace(req);
         
-        return {'statusCode':200,'status':'SUCCESS','message':'','data':PaymentSetting};
+        return {'statusCode':200,'status':'SUCCESS','message':'','rowCount':(PaymentSetting ? 1 : 0),'data':PaymentSetting};
     }
     catch(ex) {
         return handleError(new CustomError(ex.name, ex.message, ex.parent), req.user);
@@ -40,7 +40,7 @@ async function selectPaymentSettingOne(req, where) {
         /** Tracer End*/
         tracer.trace(req);
         
-        return {'statusCode':200,'status':'SUCCESS','message':'','data':PaymentSetting};
+        return {'statusCode':200,'status':'SUCCESS','message':'','rowCount':(PaymentSetting ? 1 : 0),'data':PaymentSetting};
     }
     catch(ex) {
         return handleError(new CustomError(ex.name, ex.message, ex.parent), req.user);

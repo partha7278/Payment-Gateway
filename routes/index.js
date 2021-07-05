@@ -3,6 +3,7 @@ const apiPrefix = config.get('API_PREFIX');
 const tracing = require('../middlewares/tracing');
 const tokenDecode = require('../middlewares/auth/tokenDecode');
 const user = require('../middlewares/auth/user');
+
 const testRoute = require('./test');
 const paymentSettingRoute = require('./paymentSetting');
 

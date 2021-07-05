@@ -61,18 +61,22 @@ async function updateOrCreatePaymentSetting(req){
 
 
     if(Object.keys(data).length == 0)
-        return {'statusCode':400,'status':'FAILED','message':'Alt least on setting needed to be update','data':''};
+        return {'statusCode':400,'status':'FAILED','message':'At least one setting needed to be update','rowCount':0,'data':''};
 
 
 
     let result = {};
     let record = await paymentSettingQuery.selectIdPaymentSettingOne(req, where);
-    if(!record){
+
+    if(record.rowCount == 0 && record.statusCode == 200){
         data.organizationId = organizationId;
         result = await paymentSettingPost.createPaymentSetting(req, data);
     }
-    else{
+    else if(record.statusCode == 200){
         result = await paymentSettingPost.updatePaymentSetting(req, data, where);
+    }
+    else{
+        return record;
     }
 
     /** Tracer End*/

@@ -34,7 +34,7 @@ class CustomError extends Error {
 function handleError(error, user={}){
     logger.error(error, user);
 
-    return {'statusCode':500,'status':'FAILED','message':'Internal Server Error','rowCount':0,'data':''};
+    return {'statusCode':500,'status':'FAILED','message':'Internal Server Error','rowCount':0,'data':null};
 }
 
 

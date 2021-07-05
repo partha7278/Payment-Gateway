@@ -1,3 +1,4 @@
+const express = require('express');
 const error = require('../middlewares/error');
 const trimmer = require('../middlewares/apiRequestTrimmer');
 const api = require('../routes/index');
