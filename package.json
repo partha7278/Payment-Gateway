@@ -1,5 +1,5 @@
 {
-  "name": "payment-gateway",
+  "name": "stormbreaker",
   "version": "1.0.0",
   "description": "A Payment Gateway integration project",
   "main": "app.js",
@@ -28,14 +28,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/partha7278/Payment-Gateway.git"
+    "url": "git+https://github.com/partha7278/Stormbreaker.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/partha7278/Payment-Gateway/issues"
+    "url": "https://github.com/partha7278/Stormbreaker/issues"
   },
-  "homepage": "https://github.com/partha7278/Payment-Gateway#readme",
+  "homepage": "https://github.com/partha7278/Stormbreaker#readme",
   "dependencies": {
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
@@ -51,7 +51,6 @@
     "pg": "^8.6.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.6.2",
-    "stack-trace": "^1.0.0-pre1",
     "underscore": "^1.13.1",
     "winston": "^3.3.3"
   },
