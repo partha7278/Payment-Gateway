@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       default: false
     },
+    isPaymentDefault: {
+      type: DataTypes.BOOLEAN,
+      default: false
+    }
   }, {
     tableName: 'credflowBanks',
     paranoid : true,

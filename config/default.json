@@ -1,4 +1,5 @@
 {   
+    "PAYMENT_GATEWAY": "razorpay",
     "API_PREFIX" : "",
     "TRACING_LEVEL" : "1",
     "TRACING_LOG" : "1",

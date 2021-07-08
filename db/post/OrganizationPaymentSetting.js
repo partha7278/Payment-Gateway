@@ -2,10 +2,10 @@
 
 /**
  * - Update existing record
- * @param  {object} req - request object
- * @param  {object} data - data need to be update
- * @param  {object} where - update condition
- * @return {object} - return object with status, statusCode, message & data
+ * @param  {Object} req - request object
+ * @param  {Object} data - data need to be update
+ * @param  {Object} where - update condition
+ * @return {Object} - return object with status, statusCode, message & data
  */
 async function updatePaymentSetting(req, data, where) {
     
@@ -27,9 +27,9 @@ async function updatePaymentSetting(req, data, where) {
 
 /**
  * - Insert new record
- * @param  {object} req - request object
- * @param  {object} data - data need to be update
- * @return {object} - return object with status, statusCode, message & data 
+ * @param  {Object} req - request object
+ * @param  {Object} data - data need to be update
+ * @return {Object} - return object with status, statusCode, message & data 
  */
 async function createPaymentSetting(req, data) {
     

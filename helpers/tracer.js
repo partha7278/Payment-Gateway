@@ -7,13 +7,14 @@ const basedir = path.dirname(require.main.filename);
 
 
 /**
- * @param  {object} req - request object
+ * tracer entry function
+ * @param  {Object} req - request object
  * @return 
  */
 function entry(req){
 
     req.tracing = [];
-    req.lastProcessedTime = performance.now();
+    req.entryTime = performance.now();
     req.tracing.push({'entry':0});
 
     /** Console tracing entry */
@@ -26,7 +27,8 @@ function entry(req){
 
 
 /**
- * @param  {object} req - request object
+ * tracer exit function
+ * @param  {Object} req - request object
  * @return 
  */
 function exit(req){
@@ -34,9 +36,9 @@ function exit(req){
     /** Make entry only once using tracingExit flag */
     if(!req.tracingExit){
         req.tracingExit = true;
-        let time = Math.ceil(performance.now() - req.lastProcessedTime);
+        let time = Math.ceil(performance.now() - req.entryTime);
         req.tracing.push({'exit':time});
-        req.lastProcessedTime = performance.now();
+        req.entryTime = performance.now();
 
         /** Console Tracing exit */
         if(config.get('TRACING_LOG') == 1 || config.get('TRACING_LOG') == 3)
@@ -64,12 +66,14 @@ function exit(req){
 
 
 /**
- * @param  {object} req - required - request object
+ * @param  {Object} req - required - request object
  * @param  {string} name - optional - trace name
  * @return
  */
 function trace(req,name){
     //TODO we have to complete this function using errorStack
+    let time = Math.ceil(performance.now() - req.entryTime);
+    console.log('time ',time,' ms');
 }
 
 

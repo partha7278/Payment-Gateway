@@ -12,6 +12,9 @@ async function updateOrCreatePaymentSetting(req){
     /** Tracer Start*/
     tracer.trace(req);
 
+    /** Validate data */
+    let validationResult = validate(req, 'createPaymentSettings');
+    if(validationResult.statusCode != 200) return validationResult;
 
     let data = {};
     let organizationId = parseInt(req.header("organization_id"));
@@ -61,7 +64,7 @@ async function updateOrCreatePaymentSetting(req){
 
 
     if(Object.keys(data).length == 0)
-        return {'statusCode':400,'status':'FAILED','message':'At least one setting needed to be update','rowCount':0,'data':''};
+        return {'statusCode':400,'status':'FAILED','message':'At least one setting needed to be update','rowCount':0,'data':null};
 
 
 

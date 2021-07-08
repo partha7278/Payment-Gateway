@@ -14,7 +14,7 @@ module.exports = async function(req, res, next) {
             /** fetch user details & set user details in req */
             let user = await db.User.findOne({ where: { id: userId } });
             if(user)
-                req.user = user;
+                req.user = user.dataValues;
         }
 
     }catch (ex) {

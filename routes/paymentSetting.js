@@ -7,7 +7,7 @@ const organizationUser = require('../middlewares/auth/organizationUser');
 
 
 /** Update or Create paymentSettings */
-router.post('/', [organizationAdmin], async (req,res)=> {
+router.post('/update', [organizationAdmin], async (req,res)=> {
 
     const result = await paymentSettingsController.updateOrCreatePaymentSetting(req);
     return res.status(result.statusCode).send(result);
@@ -16,7 +16,7 @@ router.post('/', [organizationAdmin], async (req,res)=> {
 
 
 /** get paymentSettings */
-router.get('/', [organizationUser], async (req,res)=> {
+router.get('/fetch', [organizationUser], async (req,res)=> {
 
     const result = await paymentSettingsController.selectPaymentSetting(req);
     return res.status(result.statusCode).send(result);

@@ -22,6 +22,8 @@ global.db = require('./startup/db');
 let {CustomError, handleError } = require('./helpers/customError');
 global.CustomError = CustomError;
 global.handleError = handleError;
+let { validate } = require('./helpers/validation/index');
+global.validate = validate;
 
 
 

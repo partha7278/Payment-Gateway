@@ -6,7 +6,7 @@ const notification = require('../services/notification');
 
 /**
  * Info logger function
- * @param  {string,object} message - message can be string or object
+ * @param  {string | Object} message - message can be string or object
  * @return 
  */
 function info(message){
@@ -26,8 +26,8 @@ function info(message){
 /**
  * Error logger function 
  * @param  {error} err - error data
- * @param  {object} userData - user data object
- * @param  {object} others - others data object
+ * @param  {Object} userData - user data object
+ * @param  {Object} others - others data object
  * @return
  */
 function error(err,userData={},others=''){
@@ -62,7 +62,7 @@ function error(err,userData={},others=''){
 /**
  * Log write in file
  * @param  {string} path - file path, to write log
- * @param  {object} log - log 
+ * @param  {Object} log - log 
  * @return 
  */
 function writeLog(path,log){

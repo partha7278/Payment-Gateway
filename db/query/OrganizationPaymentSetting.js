@@ -2,9 +2,9 @@
 
 /**
  * - Select one record with id attribute
- * @param  {object} req - request object
- * @param  {object} where - update condition
- * @return {object} - return object with status, statusCode, message & data
+ * @param  {Object} req - request object
+ * @param  {Object} where - select condition
+ * @return {Object} - return object with status, statusCode, message & data
  */
 async function selectIdPaymentSettingOne(req, where) {
     
@@ -27,9 +27,9 @@ async function selectIdPaymentSettingOne(req, where) {
 
 /**
  * - Select one record with all attribute
- * @param  {object} req - request object
- * @param  {object} where - update condition
- * @return {object} - return object with status, statusCode, message & data
+ * @param  {Object} req - request object
+ * @param  {Object} where - select condition
+ * @return {Object} - return object with status, statusCode, message & data
  */
 async function selectPaymentSettingOne(req, where) {
     

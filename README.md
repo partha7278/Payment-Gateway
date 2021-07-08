@@ -24,4 +24,5 @@ Access Url:- http://localhost:6001
 * INFO_LOG_PATH
 * TRACING_LOG_PATH
 * SLACK_WEBHOOK_URL
+* PAYMENT_GATEWAY
 
