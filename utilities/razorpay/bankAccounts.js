@@ -1,8 +1,9 @@
 const razorpay = require('../../services/razorpay');
-const credflowBankQuery = require('../../db/query/CreadflowBank');
+const credflowBankQuery = require('../../db/query/CredflowBank');
+const credflowBankPost = require('../../db/post/CredflowBank');
 const organizationQuery = require('../../db/query/Organization');
 const organizationPost = require('../../db/post/Organization');
-
+const pennyDropPost = require('../../db/post/PennyDrop');
 
 
 /**
@@ -37,16 +38,35 @@ async function pennyDrop(req){
     /** Get bank details */
     let bank = await credflowBankQuery.selectCredflowBankOne(req, { id :req.body.bankId, organizationId: organization_id });
     if(bank.statusCode != 200) return bank;
-
+    if(bank.rowCount == 0) return {'status':'FAILED','statusCode':400,'message':'Invalid `bankId`','rowCount':0,'data':null};
+    
 
     /** Create Fund Account */
-    //TODO create funcd id & payout 1 rs
-    // razorpay.createFundAccount();
+    let fundData = {
+        "contact_id": organization.data.rezorpayContactId,
+        "account_type":"bank_account",
+        "bank_account":{
+            "name": bank.data.name,
+            "ifsc": bank.data.ifsc,
+            "account_number": bank.data.accountNumber
+        }
+    };
+    let fundAccount = await razorpay.createFundAccount(req, fundData);
+    if(fundAccount.statusCode != 200) return fundAccount;
+    bank.data.rezorpayFundId = fundAccount.data.id;
+
+
+    /** Update rezorpayFundId in bank  */
+    await credflowBankPost.updateCredflowBank(req, { "rezorpayFundId":fundAccount.data.id }, { id :req.body.bankId, organizationId: organization_id });
+
+
+    /** Generate fund account validation */
+    let fundAccountValidation = await fundAccountValidationGenerate(req, bank.data);
 
 
     tracer.trace(req); /** Tracer end */
 
-    return organization;
+    return fundAccountValidation;
 }
 
 
@@ -66,6 +86,7 @@ async function customerGenerate(req){
     /** Get organization details */
     let organization = await organizationQuery.selectFewOrganizationOne(req, { id: organization_id }, ["name","email","gstNo","mobile"] );
     if(organization.statusCode != 200) return organization;
+    if(!organization.data.gstNo) return {'status':"FAILED",'statusCode':400,'message':"Organization `GST No` cann't be null",'rowCount':0,'data':null};
 
     /** Data for create razorpay customers */
     const data = {
@@ -133,6 +154,46 @@ async function contactGenerate(req){
     return result;
 }
 
+
+
+/**
+ * Create fund account validation & add in db
+ * @param  {Object} req - request object
+ * @param  {Object} bank - bank details object
+ * @return {Object} - return object with status, statusCode, message & data
+ */
+async function fundAccountValidationGenerate(req, bank){
+
+    tracer.trace(req); /** Tracer start */
+   
+    let fundDataValidation = {
+        "fund_account": {
+            "id": bank.rezorpayFundId
+        },
+        "amount": 100,
+        "notes": {
+            "credflowBankId": bank.id,
+            "organizationId": bank.organizationId
+        }
+    };
+    let fundAccountValidation = await razorpay.createFundAccountValidation(req, fundDataValidation);
+    if(fundAccountValidation.statusCode != 200) return fundAccountValidation;
+    
+    
+    /** Create pennydrop record */
+    let pennyDropData = {
+        credflowBanksId: bank.id,
+        referenceId : fundAccountValidation.data.id,
+        paymentGateway : 'razorpay',
+        amount : 1,
+        status : 'queue'
+    };
+    await pennyDropPost.createPennyDrop(req, pennyDropData);
+
+    tracer.trace(req); /** Tracer end */
+
+    return {'status':'SUCCESS','statusCode':200,'message':'','rowCount':0, 'data':null}
+}
 
 
 

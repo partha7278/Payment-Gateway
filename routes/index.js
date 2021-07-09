@@ -8,7 +8,7 @@ const user = require('../middlewares/auth/user');
 const testRoute = require('./test');
 const paymentSettingRoute = require('./paymentSetting');
 const bankAccountRoute = require('./bankAccount');
-
+const organizationRoute = require('./organization');
 
 
 module.exports = function(app){
@@ -23,8 +23,9 @@ module.exports = function(app){
 
     /** Top level routing */
     app.use(apiPrefix+'/test',testRoute);
-    app.use(apiPrefix+'/paymentSetting',user,paymentSettingRoute);
-    app.use(apiPrefix+'/bankAccount',user,bankAccountRoute);
+    app.use(apiPrefix+'/paymentSetting',user, paymentSettingRoute);
+    app.use(apiPrefix+'/bankAccount',user, bankAccountRoute);
+    app.use(apiPrefix+'/organization',user, organizationRoute);
 
     
 

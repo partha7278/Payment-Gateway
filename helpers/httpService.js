@@ -13,7 +13,7 @@ const axios = require('axios');
 module.exports = async function httpService(method, url, data={}, headers={}, errorLog=1) {
 
     if(!url || !method)
-        return {'status':'FAILED','statusCode':400,'message':'URL & Method required','data':''};
+        return {'status':'FAILED','statusCode':400,'message':'URL & Method required','rowCount':0,'data':null};
 
     let config = {
         method: method.toLowerCase(),
@@ -29,7 +29,7 @@ module.exports = async function httpService(method, url, data={}, headers={}, er
         })
         .catch((error) => {
         
-            if(errorLog == 1){
+            if(errorLog == 1 && error.response.status != 400){
 
                 let errorObj = {
                     message: error.response.statusText,
@@ -45,7 +45,10 @@ module.exports = async function httpService(method, url, data={}, headers={}, er
                 logger.error(errorObj);
             }
 
-            resolve({'status':'FAILED','statusCode':error.response.status,'message':error.response.statusText,'data':(error.response.data ? error.response.data : '')});
+            if(error.response.status > 400){
+                resolve({'status':'FAILED','statusCode':500,'message':'Internal Server Error','rowCount':0,'data':null});
+            }
+            resolve({'status':'FAILED','statusCode':error.response.status,'message':error.response.statusText,'rowCount':0,'data':(error.response.data ? error.response.data : '')});
         });
     });
 

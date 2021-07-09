@@ -1,5 +1,5 @@
 # Stormbreaker
-Stormbreaker is a Payment Gateway Integration project
+Stormbreaker is a Payment Gateway Integration project<br/>
 Project Documentation https://app.clickup.com/t/2na6t9
 
 Access Url:- http://localhost:6001
@@ -24,6 +24,21 @@ Access Url:- http://localhost:6001
 * ERROR_LOG_PATH
 * INFO_LOG_PATH
 * TRACING_LOG_PATH
-* SLACK_WEBHOOK_URL
 * PAYMENT_GATEWAY
+
+
+### Rule
+* use _tracer.trace(req)_ in every function at begining and ending (before return)
+* use _logger.error(error)_ for log the error
+* For more see previous code
+
+
+### Global variable
+* logger - for log purpose 
+* tracer - for trace the performance
+* db - for db operation
+* CustomError - for generate custom Error
+* handleError - for handle error and return failed object
+* validate - for validate incoming json data 
+
 

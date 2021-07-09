@@ -54,6 +54,15 @@ module.exports = (sequelize, DataTypes) => {
     CredflowBank.belongsTo(models.Organization, {
       foreignKey: 'organizationId'
     });
+
+    CredflowBank.hasMany(models.CapturedTransactionSettlement,{
+        foreignKey : 'credflowBanksId'
+    });
+
+    CredflowBank.hasMany(models.PennyDrop,{
+        foreignKey : 'credflowBanksId'
+    });
+
   };
   return CredflowBank;
 };
