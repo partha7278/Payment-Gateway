@@ -9,6 +9,7 @@ const testRoute = require('./test');
 const paymentSettingRoute = require('./paymentSetting');
 const bankAccountRoute = require('./bankAccount');
 const organizationRoute = require('./organization');
+const webhookRoute = require('./webhook');
 
 
 module.exports = function(app){
@@ -26,7 +27,7 @@ module.exports = function(app){
     app.use(apiPrefix+'/paymentSetting',user, paymentSettingRoute);
     app.use(apiPrefix+'/bankAccount',user, bankAccountRoute);
     app.use(apiPrefix+'/organization',user, organizationRoute);
-
+    app.use(apiPrefix+'/webhook', webhookRoute);
     
 
 }
